@@ -25,6 +25,8 @@ class nRF24L01p{
 	byte _txIndex;
 	byte _rxPayLoad[32];
 	byte _txPayLoad[32];
+	void powerUp();
+	void powerDown();
 	void csnHigh();
 	void csnLow();
 	void ceHigh();
@@ -45,8 +47,6 @@ class nRF24L01p{
 	byte getFIFO();
 	void dynamicPayload(byte);
 	void feature(byte);
-	void powerUp();
-	void powerDown();
 	void writeReg(byte, byte);
 	void writeReg(byte, char*, byte);
 	byte readReg(byte);
@@ -57,12 +57,13 @@ class nRF24L01p{
 	void primPTX();
 	byte payLoadWidth();
 	void flushRX();
-	void flushTX();
-    SoftSPI<SOFT_SPI_MISO_PIN, SOFT_SPI_MOSI_PIN, SOFT_SPI_SCK_PIN, SPI_MODE> spi;
+
+  SoftSPI<SOFT_SPI_MISO_PIN, SOFT_SPI_MOSI_PIN, SOFT_SPI_SCK_PIN, SPI_MODE> spi;
 	
 public:
 	nRF24L01p(const byte, const byte);
 	void init();
+	void flushTX();
 	void TXaddress(char*);
 	void RXaddress(char*);
 	void channel(byte);
